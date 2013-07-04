@@ -1,0 +1,228 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+/*table,*/ caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+/* subimos el tamano de fuente hasta 20px en el html y bajamos a 10px en el body */
+html{ font-size: 125%; }
+body{ font-size: .5em; }
+
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html,body{
+  margin:0px;
+  height:100%;
+  min-height: 800px;
+  min-width: 960px;
+  background-color: #ccc;
+}
+.wrapper{
+  height: 100%;
+  overflow: hidden;
+}
+.left{
+  float: left;
+  height: 100%;
+  width: 65%;
+}
+.right{
+  float: right;
+  height: 100%;
+  width: 35%;
+  background-color: #FFF;
+  overflow: auto;
+  font-family: verdana, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+}
+.right ul{
+  margin-left: 20px;
+}
+.right ul li{
+  margin-top: 20px;
+  /*list-style: circle;*/
+  margin-left: 10px;
+}
+
+
+
+.left .map .buttons{
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: -10px;
+  z-index: 5;
+  width: 200px;
+}
+.left .map{
+  height: 50%;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.left .graph{
+  height: 50%;
+  background-color: #FFF;
+  position: relative;
+}
+.menu{
+  position: absolute;
+}
+.left .graph .bar {
+  height: 60%;
+  margin-left: 5%;
+  margin-top: 20px;
+  width: 30%;
+  float: left;
+  -webkit-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+/*
+.left .graph .donut:hover{
+  height: 80%;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+*/
+.left .graph .pie {
+  height: 60%;
+  margin-right: 2%;
+  width: 30%;
+  float: left;
+
+  -webkit-transition:all 0.3s ease-out;  /* Chrome y Safari */
+  -o-transition:all 0.3s ease-out;  /* Opera */
+  -moz-transition:all 0.3s ease-out;  /* Mozilla Firefox */
+  -ms-transition:all 0.3s ease-out;   /* Internet Explorer */
+  transition:all 0.3s ease-out;  /* W3C */
+}
+/*
+.left .graph .pie:hover{
+  height: 80%;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+*/
+.left .graph .area{
+height: 40%;
+width: 100%;
+left: 50%;
+float: left;
+position: relative;
+margin-left: -75%;
+}
+
+.left .graph .bar.text{
+  color:#fff;
+}
+
+
+.result {
+  overflow: hidden;
+  margin: auto;
+  background-color: transparent;
+  border-bottom: solid #84a5c1 1px;
+  display: block;
+  height: 110px;
+  float: left;
+  margin-left: 10px;
+}
+
+.result .foto {
+  width: 100px;
+  height: 100px;
+  float: left;
+  padding-top: 20px;
+}
+
+.result .foto img {
+  height: 73px;
+  width: 73px;
+  display: block;
+  margin: auto;
+  -webkit-border-radius: 36px;
+  -moz-border-radius: 36px;
+  border-radius: 36px;
+}
+
+.result .tw {
+  width: 450px;
+  height: 110px;
+  float: left;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #006dc0;
+}
+
+.result .tw a {
+  margin-top: 5px;
+  line-height: 45px;
+  display: block;
+  height: 45px;
+  padding-left: 50px;
+  background: url(pajaro.png) 0 0px transparent no-repeat;
+  color: #203f79;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 400;
+}
+

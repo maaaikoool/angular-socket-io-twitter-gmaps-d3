@@ -1,0 +1,25 @@
+div(class="left")
+	div(class="map")
+		div(class="buttons")
+			input(type="button",value="{{buttonVal}}", ng-click="stream()")
+		div(class='google-map', center="position.coords",zoom="zoomProperty" ,markers="markersProperty",latitude="clickedLatitudeProperty",longitude="clickedLongitudeProperty",mark-click="true",draggable="true",	fit="false",events="eventsProperty",style="height: 100%;")
+	div(class="graph")
+		div(class="bar")
+			fs:bar(height="200",bind="results.Language" )
+		div(class="pie")
+			fs:pie(outerRadius="50",fontSize="8", duration="100", bind="results.User" )
+		div(class="pie")
+			fs:donut(outerRadius="50", innerRadius="30",duration="100",fontSize="8", bind="results.Language" )
+		div(class="area")
+			fs:area(bind="timer", width="1500", interpolate="true", label="Tweets/second")
+
+div(class="right")
+	div(class="tw")
+		ul
+			li(ng-repeat="tweet in tweets | reverse")
+				div(class="result")
+					div(class="foto")
+						img(src="{{tweet.user.profile_image_url}}", alt="avatar")
+					div(class="tw")
+						a(href="https://twitter.com/{{tweet.user.screen_name}}", target="_blank"){{tweet.user.screen_name}}
+						span {{tweet.text}}

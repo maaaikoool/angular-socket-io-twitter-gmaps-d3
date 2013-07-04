@@ -1,0 +1,22 @@
+extends layout
+
+block body
+    
+
+  div(ng-view, class="wrapper")
+
+  script(src='js/lib/angular/angular.js')
+  script(src='/socket.io/socket.io.js')
+  script(src='js/app.js')
+  script(src='js/services.js')
+  script(src='js/controllers.js')
+  script(src='js/filters.js')
+  script(src='js/directives.js')
+  script(src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en")
+  script(src='js/angular-google-maps.js')
+  script(src="http://d3js.org/d3.v3.min.js")
+  script(src='js/dangle.module.js')
+  script(src='js/pie.js')
+  script(src='js/area.js')
+  script(src='js/donut.js')
+  script(src='js/bar.js')
