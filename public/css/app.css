@@ -65,7 +65,6 @@ html,body{
   height:100%;
   min-height: 800px;
   min-width: 960px;
-  background-color: #ccc;
 }
 .wrapper{
   height: 100%;
@@ -74,7 +73,14 @@ html,body{
 .left{
   float: left;
   height: 100%;
-  width: 65%;
+  width: 100%;
+}
+
+.left.streaming{
+ width: 65%; 
+transition: all 0.5s ease-in-out;  
+-webkit-transition: all 0.5s ease-in-out;  
+-moz-transition: all 0.5s ease-in-out;
 }
 .right{
   float: right;
@@ -106,13 +112,20 @@ html,body{
   width: 200px;
 }
 .left .map{
-  height: 50%;
+  height: 100%;
   background-color: transparent;
   position: relative;
   overflow: hidden;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+.left.streaming .map{
+  height: 50%;
+
+transition: all 0.5s ease-in-out;  
+-webkit-transition: all 0.5s ease-in-out;  
+-moz-transition: all 0.5s ease-in-out;
 }
 .left .graph{
   height: 50%;
@@ -134,14 +147,7 @@ html,body{
   -ms-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-/*
-.left .graph .donut:hover{
-  height: 80%;
-  position: absolute;
-  top: 20%;
-  left: 20%;
-}
-*/
+
 .left .graph .pie {
   height: 60%;
   margin-right: 2%;
@@ -154,14 +160,7 @@ html,body{
   -ms-transition:all 0.3s ease-out;   /* Internet Explorer */
   transition:all 0.3s ease-out;  /* W3C */
 }
-/*
-.left .graph .pie:hover{
-  height: 80%;
-  position: absolute;
-  top: 20%;
-  left: 20%;
-}
-*/
+
 .left .graph .area{
 height: 40%;
 width: 100%;
@@ -182,16 +181,17 @@ margin-left: -75%;
   background-color: transparent;
   border-bottom: solid #84a5c1 1px;
   display: block;
-  height: 110px;
+  height: auto;
   float: left;
+  width: 90%;
   margin-left: 10px;
 }
 
 .result .foto {
   width: 100px;
-  height: 100px;
+  height: 80px;
   float: left;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .result .foto img {
@@ -205,12 +205,14 @@ margin-left: -75%;
 }
 
 .result .tw {
-  width: 450px;
-  height: 110px;
+  width: 70%;
+  max-width: 450px;
+  height: auto;
   float: left;
   padding-left: 20px;
   font-size: 14px;
   color: #006dc0;
+  margin-bottom: 30px;
 }
 
 .result .tw a {
@@ -226,3 +228,18 @@ margin-left: -75%;
   font-weight: 400;
 }
 
+
+.animate-enter {
+  opacity: 0;
+  height: 0px,
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -ms-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+ 
+.animate-enter.animate-enter-active {
+  opacity: 1;
+   height: auto;
+}

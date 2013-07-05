@@ -13,7 +13,7 @@ var credentials = {
 
 module.exports = credentials;
 
-3- node app.js
+3- node app.js . app will be running on localhost:443
 
 4- Double click in the map to set the bounds within Twitter Streaming API will filter tweets
 
