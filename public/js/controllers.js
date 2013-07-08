@@ -4,7 +4,6 @@
 
 function TweetStream($scope, $log, $timeout, socket)
 {
-	$scope.class = "";
 	$scope.buttonVal = "Stream!"
 	$scope.tweets = new Array();
 	$scope.terms = new Array();
@@ -15,7 +14,6 @@ function TweetStream($scope, $log, $timeout, socket)
 
 	socket.on('tweet', function (message) {
 		
-		$scope.class = "streaming";
 		$scope.tweets.push(message);
 		$scope.cont++;
 		$scope.numTweets++;
@@ -150,8 +148,6 @@ function TweetStream($scope, $log, $timeout, socket)
 			      new google.maps.LatLng($scope.clickedLatitudeProperty, $scope.clickedLongitudeProperty),
 			      originalEventArgs[0].latLng) ,'#3182bd', { name : 'rightclick', function : $scope.stream });
 
-		    	mapModel.removeMarkers(mapModel.getMarkerInstances());
-		    	mapModel.markers.length = 0;
 		    	$scope.clicks = 0;
 		    	$scope.markersProperty.length = 0;
 
