@@ -42,7 +42,7 @@ app.get('/partials/:name', routes.partials);
 app.get('*', routes.index);
 
 // Socket.io Communication
-//io.set('log level', 1); // reduce logging
+io.set('log level', 1); // reduce logging
 io.sockets.on('connection', socket);
 
 // Start server

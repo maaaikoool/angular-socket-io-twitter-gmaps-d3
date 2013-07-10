@@ -169,7 +169,7 @@ angular.module('dangle')
                         // d3 exit/remove flushes old values (removes old rects)
                         labels.exit().remove();
                     }
-                })
+                },true)
             }
         };
     }]);

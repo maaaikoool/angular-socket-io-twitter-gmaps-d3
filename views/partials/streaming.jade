@@ -1,7 +1,7 @@
 div(data-ng-init="showGraph=false",ng-class="{left : true, streaming: showGraph == true }" )
 	div(ng-class="{ map : true}")
 		div(class="buttons")
-			input(type="button",value="{{buttonVal}}", ng-click="stream()")
+			input(type="button",data-ng-init="buttonVal='Stream!'", value="{{buttonVal}}", ng-click="stream()")
 		div(class='google-map', center="position.coords",zoom="zoomProperty" ,markers="markersProperty",latitude="clickedLatitudeProperty",longitude="clickedLongitudeProperty",mark-click="true",draggable="true",	fit="false",events="eventsProperty",style="height: 100%;width=100%")
 	div(class="graph")
 		div(class="bar")
@@ -11,7 +11,7 @@ div(data-ng-init="showGraph=false",ng-class="{left : true, streaming: showGraph 
 		div(class="pie")
 			fs:donut(outerRadius="50", innerRadius="30",duration="100",fontSize="8", bind="results.Language" )
 		div(class="area",  data-ng-show="showGraph")
-			fs:area(bind="timer", width="1500", interpolate="true", label="Tweets/second")
+			fs:area(bind="results.Timer", width="1500", interpolate="true", label="Tweets/second")
 
 div(class="right")
 	div(class="tw")

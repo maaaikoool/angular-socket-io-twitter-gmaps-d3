@@ -2,38 +2,59 @@
 
 /* Controllers */
 
-function TweetStream($scope, $log, $timeout, socket)
+function TweetStream($scope, $log, $timeout, $filter, socket)
 {
-	$scope.buttonVal = "Stream!"
 	$scope.tweets = new Array();
-	$scope.terms = new Array();
-	$scope.friends=$scope.followers=$scope.clicks = $scope.cont = 0;
+	$scope.languages = new Array();
+	$scope.clicks = $scope.cont = 0;
 	$scope.rectangle;
-	$scope.entries = new Array();
 	$scope.streaming = false;
+
+	$scope.results =  {
+        Language: {
+            _type: "terms",
+            terms: new Array()
+        },
+		User : {
+			_type: "terms",
+			 terms: [{
+                term: "Friends",
+                count: 1
+            }, {
+                term: "Followers",
+                count: 1
+            }]
+		},
+		Timer : {
+			_type: "date_histogram",
+		    entries : new Array()
+		}
+    };
 
 	socket.on('tweet', function (message) {
 		
 		$scope.tweets.push(message);
 		$scope.cont++;
 		$scope.numTweets++;
-		$scope.friends+=message.user.friends_count;
-		$scope.followers+=message.user.followers_count;
+		$scope.results.User.terms[0].count+=message.user.friends_count;
+		$scope.results.User.terms[1].count+=message.user.followers_count;
 
 		var found=false,i=0;
-		while(!found && i < $scope.terms.length)
+		while(!found && i < $scope.languages.length)
 		{
-			if(message.lang == $scope.terms[i].term)
+			if(message.lang == $scope.languages[i].term)
 			{
 				found = true;
-				$scope.terms[i].count++;
+				$scope.languages[i].count++;
 			}
 			else
 				i++;
 		}
 
 		if(!found)
-			$scope.terms.push({term : message.lang, count : 1});
+			$scope.languages.push({term : message.lang, count : 1});
+
+		$scope.results.Language.terms = $filter('top5')($scope.languages);
 		
 		if(message.coordinates != undefined)
 		{
@@ -47,25 +68,6 @@ function TweetStream($scope, $log, $timeout, socket)
 			 }, 1500);
 		}
 
-
-		var aux = {
-                Language: {
-                    _type: "terms",
-                    terms: $scope.terms.sort(compareCount).slice(0, ($scope.terms.length < 5) ? $scope.terms.length : 5)
-                },
-        		User : {
-        			_type: "terms",
-        			 terms: [{
-                        term: "Friends",
-                        count: $scope.friends
-                    }, {
-                        term: "Followers",
-                        count: $scope.followers
-                    }]
-        		}
-        };
-		$scope.results = aux;
-
     });
 
 	$scope.stream = function()
@@ -74,28 +76,22 @@ function TweetStream($scope, $log, $timeout, socket)
 
 		if($scope.buttonVal == "Stream!" && $scope.rectangle != undefined)
 		{	
-
-			// $timeout(function (){
+			$timeout(function (){
 			  		$scope.position.coords.latitude = $scope.rectangle.bounds.getCenter().lat();
 					$scope.position.coords.longitude = $scope.rectangle.bounds.getCenter().lng();
-			// },1000);
+			},1000);
 			$scope.buttonVal = "Stop";
-			$scope.tweets.length=$scope.terms.length=$scope.entries.length=$scope.friends=$scope.followers=$scope.cont=0;
+			$scope.results.User.terms[0].count=$scope.results.User.terms[1].count=$scope.tweets.length=$scope.languages.length=$scope.cont=0;
 
 			var aux = $scope.rectangle.getBounds().getSouthWest().lng() + "," + $scope.rectangle.getBounds().getSouthWest().lat()
 						+ "," + $scope.rectangle.getBounds().getNorthEast().lng() + "," + $scope.rectangle.getBounds().getNorthEast().lat();
 			$scope.rectangle.setMap(null);
 			socket.emit('start', aux);
-
 			$scope.streaming = true;
 
 			 $timeout(function timer(){
-		       	$scope.entries.push({ time : new Date().getTime(), count: $scope.cont});
+		       	$scope.results.Timer.entries.push({ time : new Date().getTime(), count: $scope.cont});
 		 		$scope.cont = 0;
-		 		$scope.timer =  {
-	        			_type: "date_histogram",
-		        		entries : $scope.entries
-	        		};
 		 		if($scope.streaming)
 		        	$timeout(timer, 1000);
 		    },1000);
@@ -159,31 +155,22 @@ function TweetStream($scope, $log, $timeout, socket)
 
 	function toLatLng(lat, lng) {
 	    return new google.maps.LatLng(lat, lng);
-	  }
-
-	function toBounds(j,k) {
-	var pts = [];
-	var latMin, latMax, lngMin, lngMax;
-	var sw, ne;
-
-	latMin = Math.min(j.lat(), k.lat());
-	latMax = Math.max(j.lat(), k.lat());
-
-	lngMin = Math.min(j.lng(), k.lng());
-	lngMax = Math.max(j.lng(), k.lng());
-
-	sw = toLatLng(latMin, lngMin);
-	ne = toLatLng(latMax, lngMax);
-	return new google.maps.LatLngBounds(sw, ne);
 	}
 
-	function compareCount(a,b) { 
-	    if(a.count == b.count)
-	        return 0;
-	    if(a.count > b.count)
-	        return -1;
-	    else
-	        return 1
+	function toBounds(j,k) {
+		var pts = [];
+		var latMin, latMax, lngMin, lngMax;
+		var sw, ne;
+
+		latMin = Math.min(j.lat(), k.lat());
+		latMax = Math.max(j.lat(), k.lat());
+
+		lngMin = Math.min(j.lng(), k.lng());
+		lngMax = Math.max(j.lng(), k.lng());
+
+		sw = toLatLng(latMin, lngMin);
+		ne = toLatLng(latMax, lngMax);
+		return new google.maps.LatLngBounds(sw, ne);
 	}
 
 }

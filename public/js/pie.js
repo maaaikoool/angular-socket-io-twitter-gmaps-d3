@@ -123,7 +123,7 @@ angular.module('dangle')
                                     return d.data.term; 
                                 }); 
                     }
-                })
+                },true)
 
             }
         };
